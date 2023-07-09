@@ -8,7 +8,10 @@ def get_logs_and_metrics(logs_url, metrics_url):
     metrics_response = requests.get(metrics_url)
     metrics_data = metrics_response.json()
 
-    print("Logs data:", logs_data)
-    print("Metrics data:", metrics_data)
+    return logs_data, metrics_data
 
-get_logs_and_metrics("url_logs", "url_metrics")
+logs_data, metrics_data = get_logs_and_metrics("url_logs", "url_metrics")
+
+print("Logs data:", logs_data)
+print("Metrics data:", metrics_data)
+
