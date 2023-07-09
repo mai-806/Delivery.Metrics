@@ -1,18 +1,14 @@
 from kafka import KafkaConsumer
 from clickhouse_driver import Client
-import datetime
 import time
 import json
 
 
 def get_data_from_kafka(topic):
     consumer = KafkaConsumer(topic, bootstrap_servers='localhost:9092')
-    while True:
-        messages = consumer.poll(timeout_ms=5000)
-        for tp, messages in messages.items():
-            for message in messages:
-                data = json.loads(message.value.decode('utf-8'))
-                send_to_clickhouse(data)
+    for message in messages:
+            data = json.loads(message.value.decode('utf-8'))
+            send_to_clickhouse(data)
 
 def send_to_clickhouse(data):
     client = Client(host='localhost', port=9000, user='default', password='213790')
